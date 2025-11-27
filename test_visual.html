@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Test Visual - Botón Base de Datos</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+        }
+        .container-custom {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .header {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: slideDown 0.6s ease-out;
+        }
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        .preview-card {
+            background: white;
+            border-radius: 12px;
+            padding: 0;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+        .preview-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        .preview-content {
+            padding: 25px;
+        }
+        .navbar-preview {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3f51b5 100%);
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .brand-text {
+            color: white;
+            font-weight: 700;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .brand-text i {
+            font-size: 2rem;
+        }
+        .nav-buttons-demo {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .nav-btn-demo {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-radius: 6px;
+            padding: 8px 14px !important;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            white-space: nowrap;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .nav-btn-demo:hover {
+            background: rgba(100, 181, 246, 0.3) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+            border-color: rgba(255, 255, 255, 0.8) !important;
+            transform: translateY(-2px) scale(1.05);
+            color: #ffffff !important;
+        }
+        .nav-btn-demo i {
+            font-size: 1.1rem;
+        }
+        .description {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table thead th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .comparison-table tbody td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table tbody tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .comparison-table .check {
+            color: #2e7d32;
+            font-weight: 700;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .btn-custom {
+            padding: 12px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
+            color: white;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
+        }
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+        .step-list li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            font-weight: 500;
+        }
+        .step-list li:before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            width: 28px;
+            height: 28px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-custom">
+        <div class="header">
+            <h1>🎯 Test Visual - Botón "Base de Datos"</h1>
+            <p>Visualiza cómo se verá el botón en tu aplicación</p>
+        </div>
+
+        <!-- Preview de la Navbar -->
+        <div class="preview-card">
+            <div class="preview-title">
+                <i class="material-icons" style="vertical-align: middle;">preview</i> Vista Previa de la Navbar
+            </div>
+            <div class="preview-content">
+                <div class="navbar-preview">
+                    <div class="brand-text">
+                        <i class="material-icons">school</i>
+                        Gestión Escolar
+                    </div>
+                    <div class="nav-buttons-demo">
+                        <a class="nav-btn-demo" href="#" onclick="alert('Botón Registro - Lleva a los formularios'); return false;">
+                            <i class="material-icons">edit</i>
+                            <span>Registro</span>
+                        </a>
+                        <a class="nav-btn-demo" href="database.html">
+                            <i class="material-icons">storage</i>
+                            <span>Base de Datos</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="description">
+                    <strong>📍 Ubicación:</strong> Estos botones aparecen en la barra azul superior de index.html
+                    <br><strong>🎯 Función:</strong> Permite navegación rápida entre Registro y Base de Datos
+                </div>
+            </div>
+        </div>
+
+        <!-- Explicación de funciones -->
+        <div class="preview-card">
+            <div class="preview-title">
+                <i class="material-icons" style="vertical-align: middle;">info</i> Funciones de Cada Botón
+            </div>
+            <div class="preview-content">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Botón</th>
+                            <th>Icono</th>
+                            <th>Función</th>
+                            <th>Destino</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Registro</strong></td>
+                            <td><i class="material-icons" style="vertical-align: middle;">edit</i></td>
+                            <td>Acceso a formularios de captura de datos</td>
+                            <td>index.html (tabs)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Base de Datos</strong></td>
+                            <td><i class="material-icons" style="vertical-align: middle;">storage</i></td>
+                            <td>Visualización, búsqueda y filtrado de datos</td>
+                            <td>database.html</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Instrucciones -->
+        <div class="preview-card">
+            <div class="preview-title">
+                <i class="material-icons" style="vertical-align: middle;">checklist</i> ¿Cómo Ver los Botones?
+            </div>
+            <div class="preview-content">
+                <div class="success-box">
+                    ✅ Los botones YA ESTÁN en tu código. Solo necesitas actualizar el navegador.
+                </div>
+
+                <h4 style="color: #667eea; margin-top: 20px; margin-bottom: 15px;">Sigue estos pasos:</h4>
+                <ul class="step-list">
+                    <li data-step="1">Abre <strong>index.html</strong> en tu navegador</li>
+                    <li data-step="2">Presiona <strong>Ctrl + F5</strong> (Windows) o <strong>Cmd + Shift + R</strong> (Mac)</li>
+                    <li data-step="3">¡Verás los botones en la barra azul superior!</li>
+                    <li data-step="4">Haz clic en "Base de Datos" para visualizar tus datos</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Características -->
+        <div class="preview-card">
+            <div class="preview-title">
+                <i class="material-icons" style="vertical-align: middle;">star</i> Características del Botón
+            </div>
+            <div class="preview-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <strong style="color: #667eea;">✨ Diseño</strong>
+                        <ul style="margin-left: 20px; margin-top: 8px;">
+                            <li>Gradiente azul atractivo</li>
+                            <li>Borde semi-transparente</li>
+                            <li>Iconos Material Design</li>
+                            <li>Animaciones suaves</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong style="color: #667eea;">⚡ Funcionalidad</strong>
+                        <ul style="margin-left: 20px; margin-top: 8px;">
+                            <li>Navegación rápida</li>
+                            <li>Responde a clicks</li>
+                            <li>Efectos hover</li>
+                            <li>Compatible con móvil</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Solución de problemas -->
+        <div class="preview-card">
+            <div class="preview-title">
+                <i class="material-icons" style="vertical-align: middle;">troubleshoot</i> ¿No Ves los Botones?
+            </div>
+            <div class="preview-content">
+                <p style="margin-bottom: 15px;">Intenta estas soluciones en orden:</p>
+                
+                <div style="background: #fff3e0; border-left: 4px solid #e65100; padding: 12px; margin: 10px 0; border-radius: 4px;">
+                    <strong>1. Limpia el caché:</strong> Presiona Ctrl + Shift + Delete, selecciona todo y borra
+                </div>
+                
+                <div style="background: #fff3e0; border-left: 4px solid #e65100; padding: 12px; margin: 10px 0; border-radius: 4px;">
+                    <strong>2. Reinicia el navegador:</strong> Ciérralo completamente y vuelve a abrir
+                </div>
+                
+                <div style="background: #fff3e0; border-left: 4px solid #e65100; padding: 12px; margin: 10px 0; border-radius: 4px;">
+                    <strong>3. Prueba otro navegador:</strong> Chrome, Firefox, Edge, etc.
+                </div>
+                
+                <div style="background: #fff3e0; border-left: 4px solid #e65100; padding: 12px; margin: 10px 0; border-radius: 4px;">
+                    <strong>4. Verifica la ruta:</strong> c:\Users\usuario\Documents\examenweb\EscuelaSecundaria\EscuelaSecundaria\index.html
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="preview-card">
+            <div class="preview-title">
+                <i class="material-icons" style="vertical-align: middle;">launch</i> Ir a las Páginas
+            </div>
+            <div class="preview-content">
+                <div class="action-buttons">
+                    <a href="index.html" class="btn-custom btn-primary">
+                        <i class="material-icons">home</i>
+                        Ir a Index
+                    </a>
+                    <a href="database.html" class="btn-custom btn-primary">
+                        <i class="material-icons">storage</i>
+                        Ver Base de Datos
+                    </a>
+                    <a href="login.html" class="btn-custom btn-secondary">
+                        <i class="material-icons">school</i>
+                        Ir a Login
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; color: white; margin-top: 40px; padding: 20px; opacity: 0.8;">
+            <p style="margin: 0;">Sistema de Gestión Escolar | Todos los botones están funcionando ✅</p>
+            <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Presiona Ctrl+F5 en index.html para ver los botones de navegación</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

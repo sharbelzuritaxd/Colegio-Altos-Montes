@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Sistema de Gestión Escolar - Escuela Secundaria</title>
+
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- NAVBAR SUPERIOR -->
+    <!-- ============================================ -->
+    <nav class="navbar-fixed">
+        <div class="nav-wrapper blue-grey darken-3">
+            <a href="index.html" class="brand-logo">
+                <i class="material-icons">school</i> Gestión Escolar
+            </a>
+            <a href="#" data-target="nav-menu" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="index.html" class="nav-btn" title="Volver a Registro">
+                    <i class="material-icons left">arrow_back</i>Volver
+                </a></li>
+                <li><a href="database.html" class="nav-btn" title="Ver Base de Datos">
+                    <i class="material-icons left">storage</i>Base de Datos
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- MENÚ LATERAL (Mobile) -->
+    <!-- ============================================ -->
+    <ul class="sidenav" id="nav-menu">
+        <li><a href="index.html">
+            <i class="material-icons">arrow_back</i>Volver
+        </a></li>
+        <li><a href="database.html">
+            <i class="material-icons">storage</i>Base de Datos
+        </a></li>
+        <li><div class="divider"></div></li>
+        <li><a href="#alumnos-tab" onclick="showTab('alumnos'); document.querySelector('.sidenav').M_Sidenav.close(); return false;">
+            <i class="material-icons">person</i>Alumnos
+        </a></li>
+        <li><a href="#profesores-tab" onclick="showTab('profesores'); document.querySelector('.sidenav').M_Sidenav.close(); return false;">
+            <i class="material-icons">school</i>Profesores
+        </a></li>
+        <li><a href="#materias-tab" onclick="showTab('materias'); document.querySelector('.sidenav').M_Sidenav.close(); return false;">
+            <i class="material-icons">book</i>Materias
+        </a></li>
+        <li><a href="#notas-tab" onclick="showTab('notas'); document.querySelector('.sidenav').M_Sidenav.close(); return false;">
+            <i class="material-icons">grade</i>Notas
+        </a></li>
+    </ul>
+
+    <!-- ============================================ -->
+    <!-- CONTENEDOR PRINCIPAL -->
+    <!-- ============================================ -->
+    <div class="container" id="main-container">
+        <div class="row" style="margin-top: 20px;">
+            <!-- TABS DE NAVEGACIÓN -->
+            <div class="col s12">
+                <ul class="tabs" id="main-tabs">
+                    <li class="tab col s3 m3"><a href="#alumnos-tab" class="active">Alumnos</a></li>
+                    <li class="tab col s3 m3"><a href="#profesores-tab">Profesores</a></li>
+                    <li class="tab col s3 m3"><a href="#materias-tab">Materias</a></li>
+                    <li class="tab col s3 m3"><a href="#notas-tab">Notas</a></li>
+                </ul>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- BOTÓN PARA ACCEDER A BASE DE DATOS -->
+            <!-- ========================================== -->
+            <div class="col s12" style="margin-top: 15px; margin-bottom: 20px;">
+                <div style="background: linear-gradient(135deg, #1a237e 0%, #3f51b5 100%); 
+                            padding: 20px; 
+                            border-radius: 12px; 
+                            text-align: center;
+                            box-shadow: 0 6px 20px rgba(26, 35, 126, 0.3);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 15px;
+                            flex-wrap: wrap;">
+                    <span style="color: white; font-size: 1.1rem; font-weight: 600;">
+                        ¿Deseas ver todos los datos registrados?
+                    </span>
+                    <a href="database.html" class="btn" style="background: #2e7d32; 
+                                                             font-weight: 700;
+                                                             padding: 12px 25px;
+                                                             white-space: nowrap;
+                                                             text-transform: uppercase;
+                                                             font-size: 0.9rem;
+                                                             letter-spacing: 0.8px;
+                                                             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                                                             display: inline-flex;
+                                                             align-items: center;
+                                                             gap: 8px;
+                                                             flex-shrink: 0;">
+                        <i class="material-icons" style="font-size: 1.3rem; margin-right: 5px;">storage</i>
+                        Base de Datos
+                    </a>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 1: ALUMNOS -->
+            <!-- ========================================== -->
+            <div id="alumnos-tab" class="col s12">
+                <div class="row">
+                    <!-- FORMULARIO -->
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <i class="material-icons left">person_add</i>
+                                    Nuevo Alumno
+                                </span>
+                                <form id="form-alumno">
+                                    <input type="hidden" id="alumno-id">
+                                    
+                                    <div class="input-field">
+                                        <input type="text" id="alumno-nombres" class="validate" required>
+                                        <label for="alumno-nombres">Nombres</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input type="text" id="alumno-apellidos" class="validate" required>
+                                        <label for="alumno-apellidos">Apellidos</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input type="email" id="alumno-email" class="validate" required>
+                                        <label for="alumno-email">Email</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input type="date" id="alumno-fecha-nacimiento" class="validate" required>
+                                        <label for="alumno-fecha-nacimiento">Fecha de Nacimiento</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input type="text" id="alumno-curso" class="validate" required>
+                                        <label for="alumno-curso">Curso</label>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col s12" style="text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                                            <button type="submit" class="btn blue-grey darken-3 waves-effect waves-light">
+                                                <i class="material-icons left">save</i>
+                                                Guardar
+                                            </button>
+                                            <button type="reset" class="btn-flat waves-effect waves-light" onclick="resetAlumnoForm()">
+                                                Limpiar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TABLA DE ALUMNOS -->
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <i class="material-icons left">list</i>
+                                    Lista de Alumnos
+                                </span>
+                                <div id="alumnos-list" style="overflow-x: auto;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 2: PROFESORES -->
+            <!-- ========================================== -->
+            <div id="profesores-tab" class="col s12">
+                <div class="row">
+                    <!-- FORMULARIO -->
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <i class="material-icons left">person_add</i>
+                                    Nuevo Profesor
+                                </span>
+                                <form id="form-profesor">
+                                    <input type="hidden" id="profesor-id">
+                                    
+                                    <div class="input-field">
+                                        <input type="text" id="profesor-nombres" class="validate" required>
+                                        <label for="profesor-nombres">Nombres</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input type="text" id="profesor-apellidos" class="validate" required>
+                                        <label for="profesor-apellidos">Apellidos</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input type="email" id="profesor-email" class="validate" required>
+                                        <label for="profesor-email">Email</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input type="text" id="profesor-especialidad" class="validate" required>
+                                        <label for="profesor-especialidad">Especialidad</label>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col s12" style="text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                                            <button type="submit" class="btn blue-grey darken-3 waves-effect waves-light">
+                                                <i class="material-icons left">save</i>
+                                                Guardar
+                                            </button>
+                                            <button type="reset" class="btn-flat waves-effect waves-light" onclick="resetProfesorForm()">
+                                                Limpiar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TABLA DE PROFESORES -->
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <i class="material-icons left">list</i>
+                                    Lista de Profesores
+                                </span>
+                                <div id="profesores-list" style="overflow-x: auto;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 3: MATERIAS -->
+            <!-- ========================================== -->
+            <div id="materias-tab" class="col s12">
+                <div class="row">
+                    <!-- FORMULARIO -->
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <i class="material-icons left">add_circle</i>
+                                    Nueva Materia
+                                </span>
+                                <form id="form-materia">
+                                    <input type="hidden" id="materia-id">
+                                    
+                                    <div class="input-field">
+                                        <input type="text" id="materia-nombre" class="validate" required>
+                                        <label for="materia-nombre">Nombre</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <textarea id="materia-descripcion" class="materialize-textarea"></textarea>
+                                        <label for="materia-descripcion">Descripción</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input type="text" id="materia-profesor-id" class="validate" placeholder="Escribe nombre del profesor..." list="profesores-datalist" required>
+                                        <label for="materia-profesor-id">Profesor Responsable</label>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col s12" style="text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                                            <button type="submit" class="btn blue-grey darken-3 waves-effect waves-light">
+                                                <i class="material-icons left">save</i>
+                                                Guardar
+                                            </button>
+                                            <button type="reset" class="btn-flat waves-effect waves-light" onclick="resetMateriaForm()">
+                                                Limpiar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TABLA DE MATERIAS -->
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <i class="material-icons left">list</i>
+                                    Lista de Materias
+                                </span>
+                                <div id="materias-list" style="overflow-x: auto;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 4: NOTAS -->
+            <!-- ========================================== -->
+            <div id="notas-tab" class="col s12">
+                <div class="row">
+                    <!-- FORMULARIO -->
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <i class="material-icons left">grade</i>
+                                    Nueva Nota
+                                </span>
+                                <form id="form-nota">
+                                    <input type="hidden" id="nota-id">
+                                    
+                                    <div class="input-field">
+                                        <input type="text" id="nota-alumno-id" class="validate" placeholder="Escribe nombre del alumno..." list="alumnos-datalist" required>
+                                        <label for="nota-alumno-id">Alumno</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input type="text" id="nota-materia-id" class="validate" placeholder="Escribe nombre de materia..." list="materias-datalist" required>
+                                        <label for="nota-materia-id">Materia</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input type="number" id="nota-calificacion" min="0" max="100" step="0.01" class="validate" required>
+                                        <label for="nota-calificacion">Calificación (0-100)</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <textarea id="nota-observacion" class="materialize-textarea"></textarea>
+                                        <label for="nota-observacion">Observación</label>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col s12" style="text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                                            <button type="submit" class="btn blue-grey darken-3 waves-effect waves-light">
+                                                <i class="material-icons left">save</i>
+                                                Guardar
+                                            </button>
+                                            <button type="reset" class="btn-flat waves-effect waves-light" onclick="resetNotaForm()">
+                                                Limpiar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TABLA DE NOTAS -->
+                    <div class="col s12 m6">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <i class="material-icons left">list</i>
+                                    Lista de Notas
+                                </span>
+                                <div id="notas-list" style="overflow-x: auto;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MODAL DE CONFIRMACIÓN PARA ELIMINACIÓN -->
+    <!-- ============================================ -->
+    <div id="confirm-delete-modal" class="modal">
+        <div class="modal-content">
+            <h4>Confirmar Eliminación</h4>
+            <p>¿Estás seguro de que deseas eliminar este registro?</p>
+        </div>
+        <div class="modal-footer" style="justify-content: center;">
+            <a href="#!" class="modal-close btn-flat waves-effect waves-light">Cancelar</a>
+            <a href="#!" class="btn red waves-effect waves-light" id="confirm-delete-btn">
+                <i class="material-icons left">delete</i>
+                Eliminar
+            </a>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- BOTÓN FLOTANTE - BASE DE DATOS -->
+    <!-- ========================================== -->
+    <a href="database.html" class="btn-floating btn-large" 
+       style="position: fixed; 
+              bottom: 30px; 
+              right: 30px; 
+              background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
+              box-shadow: 0 8px 24px rgba(46, 125, 50, 0.4);
+              z-index: 999;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 70px;
+              height: 70px;
+              border-radius: 50%;
+              text-decoration: none;
+              transition: all 0.3s ease;
+              animation: slideInUp 0.6s ease-out;"
+       title="Ir a Base de Datos">
+        <i class="material-icons" style="font-size: 2rem; color: white;">storage</i>
+    </a>
+
+    <!-- ========================================== -->
+    <!-- SCRIPTS -->
+    <!-- ========================================== -->
+    
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <!-- Scripts personalizados -->
+    <script src="config.js"></script>
+    <script src="supabaseConnection.js"></script>
+    <script src="app.js"></script>
+    <script src="pruebas.js"></script>
+    
+    <!-- Script para inicializar Materialize y navegación -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar sidenav
+            const sidenavElements = document.querySelectorAll('.sidenav');
+            M.Sidenav.init(sidenavElements);
+            
+            // Inicializar tabs
+            const tabElements = document.querySelectorAll('.tabs');
+            M.Tabs.init(tabElements);
+            
+            // Inicializar elementos de Materialize
+            M.AutoInit();
+            
+            console.log('✅ Materialize inicializado correctamente');
+        });
+    </script>
+</body>
+</html>

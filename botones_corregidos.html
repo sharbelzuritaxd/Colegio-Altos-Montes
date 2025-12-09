@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ Botones Base de Datos - CORREGIDOS Y VISIBLES</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container-main {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .success-banner {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            text-align: center;
+            animation: slideDown 0.6s ease-out;
+        }
+        .success-banner h1 {
+            color: #2e7d32;
+            font-size: 2.5rem;
+            margin: 0 0 15px 0;
+        }
+        .success-banner p {
+            color: #666;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card-option {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        .card-option:nth-child(1) { animation-delay: 0.1s; }
+        .card-option:nth-child(2) { animation-delay: 0.2s; }
+        .card-title {
+            font-size: 1.5rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+        .card-title i {
+            font-size: 2.2rem;
+        }
+        .description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #666;
+        }
+        .feature-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #2e7d32;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .visual-demo {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #2e7d32;
+        }
+        .demo-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .demo-code {
+            background: white;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #333;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .floating-demo {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #999;
+            overflow: hidden;
+        }
+        .floating-button-demo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 8px 24px rgba(46, 125, 50, 0.4);
+            font-size: 2rem;
+        }
+        .big-button-demo {
+            background: linear-gradient(135deg, #1a237e 0%, #3f51b5 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .big-button-demo span {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            flex: 1;
+        }
+        .big-button-demo .btn-demo {
+            background: #2e7d32;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .step-box {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            color: #2e7d32;
+        }
+        .step-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        .btn-action {
+            padding: 12px 30px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .btn-go {
+            background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
+            color: white;
+        }
+        .btn-go:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);
+        }
+        .footer-text {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            padding: 20px;
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .success-banner h1 {
+                font-size: 1.8rem;
+            }
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-main">
+        <div class="success-banner">
+            <h1>✅ ¡Botón Corregido!</h1>
+            <p>Ahora tienes 2 formas fáciles de acceder a la Base de Datos</p>
+        </div>
+
+        <div class="grid">
+            <!-- OPCIÓN 1: BOTÓN GRANDE -->
+            <div class="card-option">
+                <div class="card-title">
+                    <i class="material-icons">check_circle</i>
+                    Botón Grande
+                </div>
+                <div class="description">
+                    Aparece debajo de los tabs (ALUMNOS, PROFESORES, MATERIAS, NOTAS) de forma muy visible.
+                </div>
+                
+                <div class="visual-demo">
+                    <div class="demo-title">Vista previa:</div>
+                    <div class="big-button-demo">
+                        <span>¿Deseas ver todos los datos registrados?</span>
+                        <a class="btn-demo" href="#">
+                            <i class="material-icons">storage</i>
+                            Base de Datos
+                        </a>
+                    </div>
+                </div>
+
+                <ul class="feature-list">
+                    <li>Fondo azul-violeta con degradado</li>
+                    <li>Texto claro y legible</li>
+                    <li>Botón verde prominente</li>
+                    <li>Fácil de clickear</li>
+                    <li>Visible en todo dispositivo</li>
+                </ul>
+            </div>
+
+            <!-- OPCIÓN 2: BOTÓN FLOTANTE -->
+            <div class="card-option">
+                <div class="card-title">
+                    <i class="material-icons">bubble_chart</i>
+                    Botón Flotante
+                </div>
+                <div class="description">
+                    Botón circular que siempre aparece en la esquina inferior derecha de la pantalla.
+                </div>
+
+                <div class="visual-demo">
+                    <div class="demo-title">Esquina inferior derecha:</div>
+                    <div class="floating-demo">
+                        <div class="floating-button-demo" title="Ir a Base de Datos">
+                            <i class="material-icons">storage</i>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="feature-list">
+                    <li>Color verde brillante</li>
+                    <li>Circular y atractivo</li>
+                    <li>Efecto hover (crece)</li>
+                    <li>Siempre visible</li>
+                    <li>Perfecto para móvil</li>
+                </ul>
+            </div>
+
+            <!-- INSTRUCCIONES -->
+            <div class="card-option" style="grid-column: 1 / -1;">
+                <div class="card-title">
+                    <i class="material-icons">directions</i>
+                    ¿Cómo Acceder?
+                </div>
+
+                <div class="step-box">
+                    <strong>1️⃣ Actualiza tu navegador</strong>
+                    <p style="margin: 5px 0;">Windows: Presiona <strong>Ctrl + F5</strong></p>
+                    <p style="margin: 5px 0;">Mac: Presiona <strong>Cmd + Shift + R</strong></p>
+                </div>
+
+                <div class="step-box">
+                    <strong>2️⃣ Verás los botones</strong>
+                    <p style="margin: 5px 0;">Botón grande: Debajo de los tabs</p>
+                    <p style="margin: 5px 0;">Botón flotante: Esquina inferior derecha</p>
+                </div>
+
+                <div class="step-box">
+                    <strong>3️⃣ Haz clic en cualquiera</strong>
+                    <p style="margin: 5px 0;">Ambos te llevan a la Base de Datos</p>
+                    <p style="margin: 5px 0;">¡Todo está sincronizado!</p>
+                </div>
+            </div>
+
+            <!-- CARACTERÍSTICAS TÉCNICAS -->
+            <div class="card-option" style="grid-column: 1 / -1;">
+                <div class="card-title">
+                    <i class="material-icons">build</i>
+                    Características Técnicas
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <strong style="color: #2e7d32; display: block; margin-bottom: 10px;">Botón Grande:</strong>
+                        <ul class="feature-list">
+                            <li>Position: relative</li>
+                            <li>Margin: 15px top/bottom</li>
+                            <li>Flexbox layout</li>
+                            <li>Responsive flex-wrap</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong style="color: #2e7d32; display: block; margin-bottom: 10px;">Botón Flotante:</strong>
+                        <ul class="feature-list">
+                            <li>Position: fixed</li>
+                            <li>Bottom: 30px; Right: 30px</li>
+                            <li>Z-index: 999</li>
+                            <li>Animation: slideInUp</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTONES DE ACCIÓN -->
+            <div class="card-option" style="grid-column: 1 / -1; text-align: center;">
+                <div class="card-title" style="justify-content: center;">
+                    <i class="material-icons">launch</i>
+                    Ir a Las Páginas
+                </div>
+                <div class="button-group">
+                    <a href="index.html" class="btn-action btn-go">
+                        <i class="material-icons">home</i>
+                        Ir a Index
+                    </a>
+                    <a href="database.html" class="btn-action btn-go">
+                        <i class="material-icons">storage</i>
+                        Ver Base de Datos
+                    </a>
+                    <a href="login.html" class="btn-action btn-go">
+                        <i class="material-icons">school</i>
+                        Ir a Login
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-text">
+            <p style="font-size: 1.1rem; margin-bottom: 10px;">🎉 ¡Botón completamente corregido y funcional!</p>
+            <p>Presiona Ctrl+F5 y haz clic en cualquiera de los dos botones para acceder a tu Base de Datos</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

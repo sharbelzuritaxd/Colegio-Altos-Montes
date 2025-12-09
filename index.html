@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Altos Montes - Sistema de Gestión Escolar</title>
+
+    <!-- Preconnect para recursos externos -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Materialize CSS con async loading -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet"></noscript>
+    
+    <!-- Material Icons con font-display swap -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts con font-display swap y minimal weights -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Animación de fondo - optimizada */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+            will-change: auto;
+        }
+
+        .container-login {
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            animation: slideInUp 0.8s ease-out;
+            backdrop-filter: blur(10px);
+            contain: layout style paint;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .school-icon {
+            font-size: 80px;
+            color: #667eea;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+            contain: layout style paint;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .school-name {
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .school-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .divider {
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 60px;
+            margin: 30px auto;
+            border-radius: 2px;
+        }
+
+        .school-description {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn-ingresar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            margin: 0 auto;
+            will-change: transform;
+        }
+
+        .btn-ingresar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-ingresar:active {
+            transform: translateY(-1px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 50px 0;
+            text-align: left;
+        }
+
+        .feature-item {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeInLeft 0.8s ease-out backwards;
+            contain: content;
+        }
+
+        .feature-item:nth-child(1) { animation-delay: 0.1s; }
+        .feature-item:nth-child(2) { animation-delay: 0.2s; }
+        .feature-item:nth-child(3) { animation-delay: 0.3s; }
+        .feature-item:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            color: #667eea;
+            min-width: 40px;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            font-size: 13px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .footer-login {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .login-card {
+                padding: 40px 25px;
+            }
+
+            .school-name {
+                font-size: 28px;
+            }
+
+            .school-subtitle {
+                font-size: 14px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-ingresar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container-login">
+        <div class="login-card">
+            <!-- Ícono de escuela -->
+            <div class="school-icon">
+                <i class="material-icons" style="font-size: 80px;">school</i>
+            </div>
+
+            <!-- Nombre del colegio -->
+            <h1 class="school-name">Colegio Altos Montes</h1>
+            <p class="school-subtitle">Excelencia Educativa</p>
+
+            <!-- Divisor decorativo -->
+            <div class="divider"></div>
+
+            <!-- Descripción -->
+            <p class="school-description">
+                Sistema de Gestión Escolar para Alumnos, Profesores y Calificaciones
+            </p>
+
+            <!-- Características -->
+            <div class="features">
+                <div class="feature-item">
+                    <i class="material-icons feature-icon">person</i>
+                    <span class="feature-text">Gestión de Alumnos</span>
+                </div>
+                <div class="feature-item">
+                    <i class="material-icons feature-icon">school</i>
+                    <span class="feature-text">Gestión de Profesores</span>
+                </div>
+                <div class="feature-item">
+                    <i class="material-icons feature-icon">book</i>
+                    <span class="feature-text">Gestión de Materias</span>
+                </div>
+                <div class="feature-item">
+                    <i class="material-icons feature-icon">grade</i>
+                    <span class="feature-text">Gestión de Notas</span>
+                </div>
+            </div>
+
+            <!-- Botón de ingreso -->
+            <a href="inicio.html" class="btn-ingresar">
+                <i class="material-icons" style="vertical-align: middle; margin-right: 8px;">login</i>
+                Ingresar al Sistema
+            </a>
+
+            <!-- Footer -->
+            <div class="footer-login">
+                <p>© 2025 Colegio Altos Montes. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Materialize JS - defer loading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base de Datos - Sistema de Gestión Escolar</title>
+
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .search-section {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .filter-btn:hover {
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-input-container {
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-responsive thead {
+            background: #667eea;
+            color: white;
+        }
+
+        .table-responsive tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .table-responsive tbody tr:hover {
+            background: #f5f5f5;
+        }
+
+        .table-responsive th,
+        .table-responsive td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        .table-responsive th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .table-responsive td {
+            font-size: 14px;
+        }
+
+        .table-responsive td:last-child {
+            text-align: center;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-small {
+            padding: 4px 12px;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .results-count {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- NAVBAR SUPERIOR -->
+    <!-- ============================================ -->
+    <nav class="navbar-fixed">
+        <div class="nav-wrapper blue-grey darken-3">
+            <a href="index.html" class="brand-logo">
+                <i class="material-icons">school</i> Gestión Escolar
+            </a>
+            <a href="#" data-target="nav-menu" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="index.html" class="nav-btn" title="Ir a Registro">
+                    <i class="material-icons left">edit</i>Registro
+                </a></li>
+                <li><a href="database.html" class="nav-btn active" title="Base de Datos">
+                    <i class="material-icons left">storage</i>Base de Datos
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- MENÚ LATERAL (Mobile) -->
+    <!-- ============================================ -->
+    <ul class="sidenav" id="nav-menu">
+        <li><a href="index.html">
+            <i class="material-icons">edit</i>Registro
+        </a></li>
+        <li><a href="database.html">
+            <i class="material-icons">storage</i>Base de Datos
+        </a></li>
+    </ul>
+
+    <!-- ============================================ -->
+    <!-- CONTENEDOR PRINCIPAL -->
+    <!-- ============================================ -->
+    <div class="container" style="margin-top: 80px;">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html">Gestión Escolar</a> / <span>Base de Datos</span>
+        </div>
+
+        <!-- Sección de Búsqueda y Filtro -->
+        <div class="search-section">
+            <div class="row">
+                <div class="col s12">
+                    <h5>
+                        <i class="material-icons left" style="color: #667eea;">storage</i>
+                        Base de Datos
+                    </h5>
+                </div>
+            </div>
+
+            <!-- Botones de Filtro -->
+            <div class="row">
+                <div class="col s12">
+                    <h6 style="color: #666; margin-bottom: 10px;">Selecciona una tabla:</h6>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterByTable('alumnos')">
+                            <i class="material-icons left tiny">person</i>Alumnos
+                        </button>
+                        <button class="filter-btn" onclick="filterByTable('profesores')">
+                            <i class="material-icons left tiny">school</i>Profesores
+                        </button>
+                        <button class="filter-btn" onclick="filterByTable('materias')">
+                            <i class="material-icons left tiny">book</i>Materias
+                        </button>
+                        <button class="filter-btn" onclick="filterByTable('notas')">
+                            <i class="material-icons left tiny">grade</i>Notas
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buscador -->
+            <div class="row search-input-container">
+                <div class="col s12 m8">
+                    <div class="input-field">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="search-input" placeholder="Buscar en la tabla seleccionada...">
+                        <label for="search-input" style="transform: translateY(-24px);">Buscar</label>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <button class="btn waves-effect waves-light" onclick="clearSearch()" style="width: 100%; background: #764ba2;">
+                        <i class="material-icons left">clear</i>Limpiar Búsqueda
+                    </button>
+                </div>
+            </div>
+
+            <!-- Información de resultados -->
+            <div class="results-count">
+                <span id="results-info">Mostrando todos los alumnos</span>
+            </div>
+
+            <!-- Tabla de datos -->
+            <div class="table-container">
+                <div id="database-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación para Eliminación -->
+    <div id="confirm-delete-modal" class="modal">
+        <div class="modal-content">
+            <h4>Confirmar Eliminación</h4>
+            <p>¿Estás seguro de que deseas eliminar este registro?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close btn-flat waves-effect waves-light">Cancelar</a>
+            <a href="#!" class="btn red waves-effect waves-light" id="confirm-delete-btn">
+                <i class="material-icons left">delete</i>Eliminar
+            </a>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MODAL PARA EDITAR DATOS -->
+    <!-- ============================================ -->
+    <div id="edit-modal" class="modal" style="max-width: 600px;">
+        <div class="modal-content">
+            <h4>
+                <i class="material-icons left" style="color: #667eea;">edit</i>
+                Editar Registro
+            </h4>
+            <div style="margin-top: 25px;">
+                <form id="edit-form">
+                    <input type="hidden" id="edit-record-id">
+                    <input type="hidden" id="edit-record-table">
+                    
+                    <!-- Campos dinámicos se insertarán aquí -->
+                    <div id="edit-form-fields"></div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-flat waves-effect waves-light modal-close">
+                Cancelar
+            </button>
+            <button type="submit" form="edit-form" class="btn blue-grey waves-effect waves-light">
+                <i class="material-icons left">save</i>
+                Guardar Cambios
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- BOTÓN FLOTANTE - REGRESAR A REGISTROS -->
+    <!-- ============================================ -->
+    <a href="index.html" class="btn-floating btn-large" 
+       style="position: fixed; 
+              bottom: 30px; 
+              right: 30px; 
+              background: linear-gradient(135deg, #1a237e 0%, #3f51b5 100%);
+              box-shadow: 0 8px 24px rgba(26, 35, 126, 0.4);
+              z-index: 999;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 70px;
+              height: 70px;
+              border-radius: 50%;
+              text-decoration: none;
+              transition: all 0.3s ease;
+              animation: slideInUp 0.6s ease-out;"
+       title="Regresar a Registros">
+        <i class="material-icons" style="font-size: 2rem; color: white;">arrow_back</i>
+    </a>
+
+    <!-- ============================================ -->
+    <!-- SCRIPTS -->
+    <!-- ============================================ -->
+    
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <!-- Scripts personalizados -->
+    <script src="config.js"></script>
+    <script src="supabaseConnection.js"></script>
+    <script src="database.js"></script>
+    
+    <!-- Script para inicializar Materialize -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar sidenav
+            M.Sidenav.init(document.querySelectorAll('.sidenav'));
+            // Inicializar modales
+            M.Modal.init(document.querySelectorAll('.modal'));
+            console.log('✅ Materialize inicializado en database.html');
+        });
+    </script>
+</body>
+</html>

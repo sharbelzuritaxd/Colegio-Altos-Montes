@@ -1,0 +1,67 @@
+# ⚡ INICIO RÁPIDO - 3 PASOS
+
+## Paso 1️⃣ - Abre login.html
+
+En tu navegador, abre:
+```
+login.html
+```
+
+Verás la carátula del **Colegio Altos Montes** 🏫
+
+---
+
+## Paso 2️⃣ - Haz clic en "Ingresar al Sistema"
+
+El botón grande con el texto:
+```
+"INGRESAR AL SISTEMA" → Login
+```
+
+---
+
+## Paso 3️⃣ - ¡A Usar!
+
+Ahora estás en el sistema principal. Puedes:
+
+### Crear un Alumno
+1. Sección "ALUMNOS" (arriba)
+2. Llena el formulario
+3. Haz clic en "GUARDAR"
+4. ✅ Verás el alumno en la lista (sin errores)
+
+### Crear un Profesor
+1. Sección "PROFESORES"
+2. Llena: Nombres, Apellidos, Email, Especialidad
+3. Haz clic en "GUARDAR"
+4. ✅ Listo
+
+### Crear una Materia
+1. Sección "MATERIAS"
+2. Selecciona profesor
+3. Ingresa nombre de materia
+4. Haz clic en "GUARDAR"
+5. ✅ Listo
+
+### Crear una Nota
+1. Sección "NOTAS"
+2. Selecciona alumno
+3. Selecciona materia
+4. Ingresa calificación (0-100)
+5. Haz clic en "GUARDAR"
+6. ✅ Listo
+
+---
+
+## ✅ Verificación
+
+¿Funciona todo?
+- ✅ Datos se guardan
+- ✅ Listas se actualizan
+- ✅ Sin errores rojos en consola
+- ✅ Todo perfecto
+
+---
+
+## 🎯 Listo, ¡A Disfrutar! 🎉
+
